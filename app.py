@@ -11,8 +11,8 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = "police_exam_secret_key"
 
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "primaria"
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
