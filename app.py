@@ -58,10 +58,10 @@ def exam():
     psych_questions = [q for q in questions if q["type"] == "psych"]
 
     selected_questions = (
-        random.sample(law_questions, 10) +
-        random.sample(logic_questions, 3) +
-        random.sample(psych_questions, 2)
-    )
+    random.sample(law_questions, 14) +
+    random.sample(logic_questions, 3) +
+    random.sample(psych_questions, 3)
+)
 
     random.shuffle(selected_questions)
 
@@ -92,7 +92,7 @@ def result():
             score += 1
 
     percentage = (score / total) * 100 if total > 0 else 0
-    status = "PASSED" if percentage >= 80 else "FAILED"
+    status = "PASSED" if percentage >= 90 else "FAILED"
     exam_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
     conn = get_db_connection()
