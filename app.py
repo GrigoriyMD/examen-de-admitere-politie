@@ -13,7 +13,6 @@ app.secret_key = "police_exam_secret_key"
 
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
-
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 
@@ -58,16 +57,17 @@ def exam():
     psych_questions = [q for q in questions if q["type"] == "psych"]
 
     selected_questions = (
-    random.sample(law_questions, 14) +
-    random.sample(logic_questions, 3) +
-    random.sample(psych_questions, 3)
-)
+        random.sample(law_questions, 14) +
+        random.sample(logic_questions, 3) +
+        random.sample(psych_questions, 3)
+    )
 
     random.shuffle(selected_questions)
 
     session['selected_questions'] = selected_questions
     session['ic_name'] = ic_name
     session['department'] = department
+    session['start_time'] = datetime.now().timestamp()
 
     return render_template(
         'exam.html',
@@ -95,6 +95,14 @@ def result():
     status = "PASSED" if percentage >= 90 else "FAILED"
     exam_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
+    start_time = session.get('start_time')
+    end_time = datetime.now().timestamp()
+
+    time_spent = int(end_time - start_time) if start_time else 0
+    minutes = time_spent // 60
+    seconds = time_spent % 60
+    time_display = f"{minutes} min {seconds} sec"
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -114,7 +122,8 @@ def result():
         score=score,
         total=total,
         percentage=round(percentage, 2),
-        status=status
+        status=status,
+        time_spent=time_display
     )
 
 

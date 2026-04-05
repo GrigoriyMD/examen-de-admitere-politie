@@ -12,12 +12,13 @@
         <div class="info-box">
             <p><b>Nume IC:</b> {{ ic_name }}</p>
             <p><b>Departament:</b> {{ department }}</p>
-            <p><b>Condiție de promovare:</b> minim 80% (12/15)</p>
+            <p><b>Condiție de promovare:</b> minim 90% (18/20)</p>
         </div>
 
         <div class="result-score">
             Scor: {{ score }}/{{ total }}<br>
-            Procent: {{ percentage }}%
+            Procent: {{ percentage }}%<br>
+            ⏱ Timp: {{ time_spent }}
         </div>
 
         {% if status == "PASSED" %}
