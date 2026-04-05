@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Login Rezultate</h2>
+        <p class="subtitle">Acces doar pentru administrator</p>
+
+        {% if error %}
+            <div class="result-fail">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/admin-login">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Parolă</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Conectare</button>
+        </form>
+
+        <div class="center" style="margin-top: 20px;">
+            <a href="/" class="back-link">Înapoi</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Examen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Examen Poliție</h2>
+
+        <div class="info-box">
+            <p><b>Timp rămas:</b> <span id="timer">20:00</span></p>
+        </div>
+
+        <div class="info-box">
+            <p><b>Nume IC:</b> {{ ic_name }}</p>
+            <p><b>Departament:</b> {{ department }}</p>
+            <p><b>Total întrebări:</b> 15</p>
+            <p><b>Condiție de promovare:</b> minim 80% (12/15)</p>
+        </div>
+
+        <form method="POST" action="/result">
+            {% for q in questions %}
+                <div class="question-box">
+                    <div class="question-title">
+                        {{ loop.index }}. {{ q["article"] }} - {{ q["question"] }}
+                    </div>
+
+                    <label class="option">
+                        <input type="radio" name="q{{ loop.index0 }}" value="A" required>
+                        {{ q["options"]["A"] }}
+                    </label>
+
+                    <label class="option">
+                        <input type="radio" name="q{{ loop.index0 }}" value="B">
+                        {{ q["options"]["B"] }}
+                    </label>
+
+                    <label class="option">
+                        <input type="radio" name="q{{ loop.index0 }}" value="C">
+                        {{ q["options"]["C"] }}
+                    </label>
+
+                    <label class="option">
+                        <input type="radio" name="q{{ loop.index0 }}" value="D">
+                        {{ q["options"]["D"] }}
+                    </label>
+                </div>
+            {% endfor %}
+
+            <button type="submit">Trimite Test</button>
+        </form>
+    </div>
+
+    <script>
+        let timeLeft = 20 * 60; // 20 minute în secunde
+
+        const timerElement = document.getElementById("timer");
+        const examForm = document.querySelector("form");
+
+        const countdown = setInterval(function () {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            timerElement.textContent = minutes + ":" + seconds;
+
+            if (timeLeft <= 120) {
+                timerElement.style.color = "red";
+                timerElement.style.fontWeight = "bold";
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                alert("Timpul a expirat! Testul se trimite automat.");
+                examForm.submit();
+                return;
+            }
+
+            timeLeft--;
+        }, 1000);
+    </script>
+</body>
+</html>

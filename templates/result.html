@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezultat Examen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Rezultat Examen</h2>
+
+        <div class="info-box">
+            <p><b>Nume IC:</b> {{ ic_name }}</p>
+            <p><b>Departament:</b> {{ department }}</p>
+            <p><b>Condiție de promovare:</b> minim 80% (12/15)</p>
+        </div>
+
+        <div class="result-score">
+            Scor: {{ score }}/{{ total }}<br>
+            Procent: {{ percentage }}%
+        </div>
+
+        {% if status == "PASSED" %}
+            <div class="result-pass">PASSED</div>
+        {% else %}
+            <div class="result-fail">FAILED</div>
+        {% endif %}
+
+        <p class="small-note">
+            {% if status == "PASSED" %}
+                Felicitări. Ai promovat testul de admitere.
+            {% else %}
+                Nu ai obținut punctajul minim necesar. Încearcă din nou.
+            {% endif %}
+        </p>
+
+        <div class="center">
+            <a href="/" class="back-link">Înapoi la început</a>
+        </div>
+    </div>
+</body>
+</html>

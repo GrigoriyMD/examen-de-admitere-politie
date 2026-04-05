@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Admitere în Poliție</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="center">
+            <div class="top-badge">Platformă Oficială de Recrutare</div>
+        </div>
+
+        <h1>Examen de Admitere în Poliție</h1>
+        <p class="subtitle">Test oficial de admitere pentru Departamentul de Politie / Departamentul de Sheriffi</p>
+        <div class="hero-divider"></div>
+
+   
+
+        <form method="POST" action="/exam">
+            <label for="ic_name">Nume IC</label>
+            <input type="text" id="ic_name" name="ic_name" placeholder="Introdu numele IC" required>
+
+            <label for="department">Departament</label>
+            <select id="department" name="department" required>
+                <option value="">-- Alege departamentul --</option>
+                <option value="Police">Police Department</option>
+                <option value="Sheriff">Sheriff Department</option>
+            </select>
+
+            <button type="submit">Start Test</button>
+        </form>
+
+        <div class="action-row">
+            <a href="/admin-login" class="back-link">Rezultatele testelor</a>
+        </div>
+
+        <div class="center">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="logo-bottom">
+</div>
+    </div>
+</body>
+</html>

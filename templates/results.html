@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezultate Examene</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Rezultate Examene</h2>
+
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: #e2e8f0;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Nume IC</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Departament</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Scor</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Procent</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Rezultat</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1;">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[0] }}</td>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[1] }}</td>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[2] }}/{{ row[3] }}</td>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[4] }}%</td>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[5] }}</td>
+                    <td style="padding: 10px; border: 1px solid #cbd5e1;">{{ row[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="center" style="margin-top: 20px;">
+            <a href="/" class="back-link">Înapoi la început</a>
+            <a href="/logout" class="back-link" style="margin-left: 10px;">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
