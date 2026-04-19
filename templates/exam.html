@@ -54,35 +54,42 @@
     </div>
 
     <script>
-        let timeLeft = 20 * 60; // 20 minute în secunde
+    let timeLeft = 5 * 60; // 5 minute
 
-        const timerElement = document.getElementById("timer");
-        const examForm = document.querySelector("form");
+    const timerElement = document.getElementById("timer");
+    const examForm = document.querySelector("form");
 
-        const countdown = setInterval(function () {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
+    const countdown = setInterval(function () {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
 
-            if (seconds < 10) {
-                seconds = "0" + seconds;
-            }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
 
-            timerElement.textContent = minutes + ":" + seconds;
+        timerElement.textContent = minutes + ":" + seconds;
 
-            if (timeLeft <= 120) {
-                timerElement.style.color = "red";
-                timerElement.style.fontWeight = "bold";
-            }
+        // 🔥 ultimele 2 minute → roșu
+        if (timeLeft <= 120) {
+            timerElement.style.color = "red";
+            timerElement.style.fontWeight = "bold";
+        }
 
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                alert("Timpul a expirat! Testul se trimite automat.");
-                examForm.submit();
-                return;
-            }
+        // 🔥 ultimele 30 secunde → pulse (efect vizual)
+        if (timeLeft <= 30) {
+            timerElement.style.animation = "pulse 1s infinite";
+        }
 
-            timeLeft--;
-        }, 1000);
-    </script>
+        // ⛔ timp expirat
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            alert("Timpul a expirat! Testul se trimite automat.");
+            examForm.submit();
+            return;
+        }
+
+        timeLeft--;
+    }, 1000);
+</script>
 </body>
 </html>
